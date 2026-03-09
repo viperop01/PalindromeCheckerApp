@@ -22,6 +22,6 @@ class PalindromeCheckerApp {
             System.out.println("It is NOT a Palindrome");
         }
 
-        sc.close();
+        sc.close();// test commit
     }
 }
