@@ -1,3 +1,4 @@
+<<<<<<< Main
 import java.util.Scanner;
 
 class PalindromeCheckerApp {
@@ -25,3 +26,5 @@ class PalindromeCheckerApp {
         sc.close();
     }
 }
+=======
+>>>>>>> local
