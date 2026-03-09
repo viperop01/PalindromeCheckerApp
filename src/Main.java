@@ -1,3 +1,4 @@
+<<<<<<< Main
 import java.util.Scanner;
 import java.util.Deque;
 import java.util.ArrayDeque;
@@ -65,3 +66,5 @@ public class UseCase4PalindromeCheckerApp {
         sc.close();
     }
 }
+=======
+>>>>>>> local
