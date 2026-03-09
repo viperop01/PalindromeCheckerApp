@@ -1,70 +1,96 @@
-<<<<<<< Main
 import java.util.Scanner;
-import java.util.Deque;
-import java.util.ArrayDeque;
 
-public class UseCase4PalindromeCheckerApp {
+class PalindromeCheckerApp {
 
-    /**
-     * Application entry point for UC4.
-     * @param args Command-line arguments
-     */
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Palindrome Checker App");
         System.out.print("Enter a word: ");
         String input = sc.nextLine();
 
-        // Convert string into character array
-        char[] chars = input.toCharArray();
+        String reversed = "";
 
-        // Initialize pointers
-        int start = 0;
-        int end = chars.length - 1;
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed = reversed + input.charAt(i);
+        }
 
-        // Assume palindrome initially
+        if (input.equalsIgnoreCase(reversed)) {
+            System.out.println("It is a Palindrome");
+        } else {
+            System.out.println("It is NOT a Palindrome");
+        }
+
+        // -------- UC8 Linked List Based Palindrome Check --------
+
+        Node head = null;
+        Node tail = null;
+
+        // Convert string to linked list
+        for (char c : input.toCharArray()) {
+            Node newNode = new Node(Character.toLowerCase(c));
+
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        // Find middle using slow & fast pointer
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse second half
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        // Compare first half and reversed second half
+        Node first = head;
+        Node second = prev;
+
         boolean isPalindrome = true;
 
-        // Two-pointer comparison
-        while (start < end) {
-            if (Character.toLowerCase(chars[start]) != Character.toLowerCase(chars[end])) {
+        while (second != null) {
+            if (first.data != second.data) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
+            first = first.next;
+            second = second.next;
         }
 
-        System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + isPalindrome);
-
-        // -------- UC7 Deque Based Palindrome Check --------
-
-        Deque<Character> deque = new ArrayDeque<>();
-
-        // Insert characters into deque
-        for (char c : input.toCharArray()) {
-            deque.addLast(Character.toLowerCase(c));
+        if (isPalindrome) {
+            System.out.println("Palindrome (Checked using Linked List)");
+        } else {
+            System.out.println("Not a Palindrome (Checked using Linked List)");
         }
-
-        boolean dequePalindrome = true;
-
-        // Compare front and rear
-        while (deque.size() > 1) {
-            char first = deque.removeFirst();
-            char last = deque.removeLast();
-
-            if (first != last) {
-                dequePalindrome = false;
-                break;
-            }
-        }
-
-        System.out.println("Is Palindrome (Using Deque)? : " + dequePalindrome);
 
         sc.close();
     }
 }
-=======
->>>>>>> local
